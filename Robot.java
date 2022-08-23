@@ -27,10 +27,9 @@ gg
     private Color color; // its color, which is produced randomly but has to be in line with the white (WHITE)
 
 
-    // Ο μοναδικός κατασκευαστής λαμβάνειτο όνομα του ρομπότ καιτις
-    // συντεταγμένες της αρχικής του θέσης, καθώς καιτο μέγεθος του
-    // πλέγματος και αρχικοποιεί ανάλογα τα σχετικά πεδία του ρομπότ.
-    // Μόνο ζωντανά ρομπότ κατασκευάζονται.
+    //  The only constructor takes as a parameter the name of the robot and the coordinates of its starting positions,
+   // as well as the size of the grid and initialises the relevant fields for the robot. Only alive robots are constructed. 
+    
     public Robot(String name, int x, int y, int gridSize) {
         this.name = name;
         Gsize = gridSize;
@@ -52,32 +51,32 @@ gg
         return color;
     }
 
-    // Είναι ζωντανό; Ορίζεται ήδη
+    // Is it alive?
     public boolean isAlive() {
         return alive;
     }
 
-    // Έχει δραπετεύσει; Ορίζεται ήδη
+    // Has it escaped?
     public boolean hasEscaped() {
         return escaped;
     }
 
-    // Είναι παγιδευμένο; Ορίζεται ήδη
+    // Is it trapped?
     public boolean isTrapped() {
         return trapped;
     }
 
-    // Το ρομπότ καταστρέφεται. Ορίζεται ήδη.
+    // THe robot is destroyed
     public void destroyed() {
         alive = false;
     }
 
-    // Επιστρέφειτην τρέχουσα θέση του ρομπότ.
+    // Returns the coordinates of the robot
     public int[] getPos() {
         return new int[]{xpos, ypos};
     }
 
-    // Επιστρέφειτην αρχική θέση του ρομπότ.
+    // Returns the starting position of the robot
     public int[] getStart() {
         return new int[]{path[0][0], path[0][1]};
     }
@@ -90,7 +89,7 @@ gg
         return Gsize;
     }
 
-    // Έχει συγκρουσθεί με το ρομπότ r;
+    // Has it collided with another robot?
     public boolean collides(Robot otherRobot) {
         int[] otherPos = otherRobot.getPos();
         for (int[] position : path) {
@@ -116,14 +115,13 @@ gg
         return !beenThereBeforeForCurrentStep;
     }
 
-    // Εάν και εφόσον μπορεί, δηλαδή είναι ζωντανό, δεν έχει δραπετεύσει
-    // ή δεν είναι παγιδευμένο, μετακινείται με τυχαίο τρόπο κατά
-    // ένα βήμα σε σημείο από το οποίο δεν έχει ξαναπεράσει. Η μέθοδος
-    // τροποποιεί ανάλογα τα επηρεαζόμενα πεδία και επιστρέφει true εάν
-    // η μετακίνηση σε κάποιο νέο σημείο ήταν εφικτή, διαφορετικά
-    // επιστρέφει false. Επιπρόσθετα ζωγραφίζει στο πλέγμα την κίνησή του με το χρώμα του,
-    // αφήνοντας έτσι το ίχνος της πορείας του πάνω στο πλέγμα (αν στη συνέχεια κάποιο άλλο
-    // ρομπότ περάσει από τα ίδια σημεία θα φανεί το δικό του ίχνος με το δικό του χρώμα).
+    // If it can, meaning if its alive, it is not trapped or has escaped, then 
+    // it moves in a random way by one step to a position it hasn't passed from. 
+    // The method modifies the relevant fields and returns true if the transposition 
+    //  to another coordinate was fiecible, else it returns false. Additionally, it draws on the 
+    // grid its movement with its color, thus leaving a trail of it path on the grid 
+    //  (if later another robot passes from the same positions the present's robot color with show) 
+
     public boolean move() {
         if (!alive || escaped || trapped) {
             System.out.println("Trapped!");
@@ -157,9 +155,8 @@ gg
         return true;
     }
 
-    // Η παρουσίαση του ρομπότ. Η λειτουργία της μεθόδου διαφαίνεται στο
-    // ακόλουθο παράδειγμα χρήσης του προγράμματος RandomRobotsτο οποίο
-    // είναι client της Robot.
+    // The display of the robot. The function of the method is evident by 
+    // the following example use of the program RandomRobots whose client is Robot
     public String toString() {
         String currentposition = "Robot" + name + "is positioned at (" + path[0][0] + "," + path[0][1] + ")" + "\n";
         if (plen == 1) {
